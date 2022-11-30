@@ -30,7 +30,6 @@ namespace HiveKin
             _instance = this;
         }
 
-
         public override void Initialize()
         {
             Log("Initializing");
@@ -59,45 +58,12 @@ namespace HiveKin
         {
             orig(self);
 
-            if (self.Fsm.GameObject.name == "Knight" && self.Fsm.Name == "Spell Control" && self.State.Name == "Spell End" && PlayerDataAccess.equippedCharm_29)
+            if (self.Fsm.GameObject.name == "Knight" && self.Fsm.Name == "Spell Control" && self.State.Name == "Spell End" && PlayerDataAccess.equippedCharm_29 && self.Fsm.PreviousActiveState.Name != "Send Event")
             {
-                int spellLevel = self.Fsm.FsmComponent.GetFsmIntVariable("Spell Level").Value;
+                HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
 
-                if (self.Fsm.PreviousActiveState.Name == "Fireball Recoil")
+                if (self.Fsm.FsmComponent.GetFsmIntVariable("Spell Level").Value == 2)
                 {
-                    if (spellLevel == 1)
-                    {
-                        HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
-                    }
-
-                    else
-                    {
-                        HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
-                        HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
-                    }
-                }
-
-                else if (self.Fsm.PreviousActiveState.Name == "Quake Finish")
-                {
-                    if (spellLevel == 1)
-                    {
-                        HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
-                    }
-                    else
-                    {
-                        HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
-                        HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
-                    }
-                }
-
-                else if (self.Fsm.PreviousActiveState.Name == "Scream End")
-                {
-                    HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
-                }
-
-                else if (self.Fsm.PreviousActiveState.Name == "Scream End 2")
-                {
-                    HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
                     HeroController.instance.gameObject.transform.Find("Charm Effects").gameObject.LocateMyFSM("Hatchling Spawn").GetFsmAction<SpawnObjectFromGlobalPool>("Hatch", 2).gameObject.Value.gameObject.Spawn(HeroController.instance.gameObject.transform.position);
                 }
             }
